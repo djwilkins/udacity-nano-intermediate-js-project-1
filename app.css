@@ -37,13 +37,16 @@ p {
 
 /* Grid Styles */
 #grid {
-    background: #fff url(images/tracks.png) no-repeat;
+    background: rgb(111, 208, 224) url(images/tracks.png) no-repeat;
     background-size: cover;
     display: flex;
     margin: 2em;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     flex-wrap: wrap;
+    visibility: hidden;
 }
+
+
 
 .grid-item {
     position: relative;
@@ -123,6 +126,7 @@ p {
     text-align: left;
     max-width: 400px;
     margin: 0 auto;
+    border-radius: 10px;
 }
 
 form p {

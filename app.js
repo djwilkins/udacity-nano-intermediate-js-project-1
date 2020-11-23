@@ -1,32 +1,80 @@
+import { dinoModule } from './scripts/dino-data.js';
 
-    // Create Dino Constructor
+(function() {
 
+    function emptyGrid() {
+        let gridItems = document.querySelectorAll('div.grid-item');
+        gridItems.forEach(function(element) {
+            element.remove();
+        });
+    }
 
-    // Create Dino Objects
+    function hideFormShowGrid() {
+        document.getElementById('dino-compare').style.display = "none";
+        document.getElementById('grid').style.visibility = "visible";
+    }
 
+    function formInputAsObject() {
+        const formData = new FormData(document.querySelector('form'));
+        return {
+            species: "human",
+            weight: parseInt(formData.get('weight')),
+            height: `${parseInt(formData.get('feet'))}'${parseInt(formData.get('inches'))}`,
+            diet: formData.get('diet'),
+            where: "",
+            when: "",
+            fact: formData.get('name')
+        };
+    }
 
-    // Create Human Object
+    function renderTileElements(tileData) {
+        tileData.forEach(function(dino) {
+            let gridItem, image, heading, paragraph, name, fact;
+            // Create elements
+            gridItem = document.createElement('div');
+            image = document.createElement('img');
+            heading = document.createElement('h3');
+            paragraph = document.createElement('p');
 
-    // Use IIFE to get human data from form
+            // Define elements
+            switch(dino.species) {
+                case "human":
+                    name = dino.fact;
+                    break;
+                case "pigeon":
+                    name = dino.species;
+                    fact = "All birds are Dinosaurs";
+                    break;
+                default:
+                    name = dino.species;
+                    fact = dino.fact;
+            }
 
+            gridItem.classList.add('grid-item');
+            heading.innerHTML = name;
+            image.setAttribute('src', `images/${dino.species.toLowerCase()}.png`);
+            paragraph.innerHTML = fact;
 
-    // Create Dino Compare Method 1
-    // NOTE: Weight in JSON file is in lbs, height in inches. 
+            gridItem.appendChild(heading);
+            gridItem.appendChild(image);
+            if (dino.species != "human") { gridItem.appendChild(paragraph); }
 
-    
-    // Create Dino Compare Method 2
-    // NOTE: Weight in JSON file is in lbs, height in inches.
+            // Append div parent element to DOM section element
+            document.getElementById('grid').appendChild(gridItem);
 
-    
-    // Create Dino Compare Method 3
-    // NOTE: Weight in JSON file is in lbs, height in inches.
+        });
 
+    }
 
-    // Generate Tiles for each Dino in Array
-  
-        // Add tiles to DOM
+    function createResults() {
+        emptyGrid(); // Empty grid of any prior results
+        hideFormShowGrid();
+        let tileData = dinoModule.generateTileData(formInputAsObject());
+        renderTileElements(tileData);
+    }
 
-    // Remove form from screen
+    document.getElementById('btn').addEventListener("click", function() {
+        createResults();
+    })
 
-
-// On button click, prepare and display infographic
+})();
