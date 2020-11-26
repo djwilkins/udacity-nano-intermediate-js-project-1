@@ -35,6 +35,14 @@ p {
     font-weight: 100;
 }
 
+ul {
+    font-weight: 100;
+    background: rgb(111, 208, 224);
+    list-style-position: inside;
+    margin-bottom: 50px;
+    margin-top: 30px;
+}
+
 /* Grid Styles */
 #grid {
     background: rgb(111, 208, 224) url(images/tracks.png) no-repeat;
