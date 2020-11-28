@@ -37,13 +37,14 @@ p {
 
 ul {
     font-weight: 100;
+    font-size: 20px;
     background: rgb(111, 208, 224);
     list-style-position: inside;
     margin-bottom: 50px;
     margin-top: 30px;
 }
 
-/* Grid Styles */
+/* Result Grid and Highlight Styles */
 #grid {
     background: rgb(111, 208, 224) url(images/tracks.png) no-repeat;
     background-size: cover;
@@ -54,7 +55,9 @@ ul {
     visibility: hidden;
 }
 
-
+#highlights {
+    visibility: hidden;
+}
 
 .grid-item {
     position: relative;
@@ -179,8 +182,13 @@ select {
     cursor: pointer;
 }
 
+#highlights {
+    margin: 50px auto 100px;
+}
+
 /* Footer */
 .fine-print {
     display: block;
     font-size: 0.7em;
+    margin-bottom: 35px;
 }

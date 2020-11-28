@@ -2,9 +2,10 @@ import { loadLocalJson } from './load-local-json.js';
 
 export let dinoModule = (function () {
 
-    // DEFINE DEPENCIES OF IIFE CALLING DINO JSON LOAD (loadLocalJsoN)
-
-    let dinoObjects = [];
+    /*
+     * Define Dino class and dinoObjects array
+     * Dependencies of dinoDataHandler IIFE
+     */
 
     class Dino {
         constructor(newDino) {
@@ -12,7 +13,13 @@ export let dinoModule = (function () {
         }
     }
 
-    // (2) Add each dino object to dinoObjects array as Dino class object
+    let dinoObjects = [];
+
+    /**
+     * @name ingestDinoData
+     * @description Creates a Dino class object for each element in array.
+     * @param {array} dinoData - An array of objects from the dino json.
+     */
     let ingestDinoData = function(dinoData) {
         dinoData.forEach(function(dino) {
             var dinoClassObject = new Dino(dino);
@@ -20,24 +27,35 @@ export let dinoModule = (function () {
         })
     };
 
-    // (1) Immediately load dino json data and pass to ingestDinoData function
+
+    /**
+     * @name dinoDataHandler
+     * @description Immediately loads dino json data and passes it to ingestDinoData().
+     * @param {array} dinoData - An array of objects from the dino json.
+     */
     (function() {
         let dinoDataHandler = function(data) {
             let dinoData = data.Dinos;
             ingestDinoData(dinoData);
         }
-        loadLocalJson("./dino.json", dinoDataHandler);
+        loadLocalJson('./dino.json', dinoDataHandler);
     })();
 
-    // DEFINE PRIVATE FUNCTIONS THAT THE INTERFACE METHOD (generateTileData) WILL CALL (shuffleDinos, humanDino.update and .get, addHumanToDinos)
+    /*
+     * Private methods called by interface method (generateTileData)
+     */
 
+    /**
+     * @name shuffleDinos
+     * @description Shuffle order of dinos for more dynamic output.
+     */
     function shuffleDinos() {
         return _.shuffle(dinoObjects);
     }
 
     // Singleton human object with update and get methods
     const humanDino = (function() {
-        let humanDefaults = { species: "human", weight: 0, height: 0, diet: "", where: "", when: "", fact: "" };
+        let humanDefaults = { species: 'human', weight: 0, height: 0, diet: '', where: '', when: '', fact: '' };
         let theHumanDino = new Dino(humanDefaults);
 
         function update(human) {
@@ -50,20 +68,29 @@ export let dinoModule = (function () {
         };
     })();
 
+    /**
+     * @name addHumanToDinos
+     * @description Add human dino object to center of array of dino objects.
+     * @param {array} arrayOfDinos - The array of dino objects from the json.
+     * @param {object} human - The human dino object to add to it.
+     */
     function addHumanToDinos(arrayOfDinos, human) {
         arrayOfDinos.splice(4, 0, human);
         return arrayOfDinos;
     }
 
+    /**
+     * @name generateTileData
+     * @description A function to utilize private functions above and return dino tile data.
+     * @param {object} humanFromUI - The object containing form input to convert to dino object and include in tile data.
+     */
     function generateTileData(humanFromUI) {
         humanDino.update(humanFromUI);
         return addHumanToDinos(shuffleDinos(), humanDino.get());
     }
 
     const moduleInterface = {
-        generateTileData: function(humanFromUI) {
-            return generateTileData(humanFromUI);
-        }
+        generateTileData: generateTileData
     };
 
     return moduleInterface;
