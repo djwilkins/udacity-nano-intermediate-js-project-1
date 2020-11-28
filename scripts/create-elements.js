@@ -1,6 +1,6 @@
 import { createStatements } from './create-statements.js';
 
-export let createElements = (function() {
+export const createElements = (function() {
 
     /**
      * @name createTileElements
@@ -8,7 +8,7 @@ export let createElements = (function() {
      * @param {array} tileData - Array of all dino objects for comparison with human object.
      */
     function createTileElements(tileData) {
-        let tileElements = [];
+        const tileElements = [];
 
         tileData.forEach(function(dino) {
             let tileElement, image, heading, paragraph, name, fact;
@@ -21,7 +21,7 @@ export let createElements = (function() {
             // Define element values based on species
             switch(dino.species) {
                 case 'human':
-                    name = dino.fact;
+                    name = dino.name;
                     break;
                 case 'pigeon':
                     name = dino.species;
@@ -57,33 +57,33 @@ export let createElements = (function() {
      */
     function createComparisonElements(tileData) {
 
-        let comparisonElements = [], comparisonStatements = [];
+        const comparisonElements = [], comparisonStatements = [];
 
-        let thisHuman = tileData.filter(function(dino) {
+        const thisHuman = tileData.filter(function(dino) {
             return dino.species === 'human';
         })[0];
 
 
         // Call three createStatement methods that return comparison statements
-        let weightComparison = createStatements.weightComparison(tileData, thisHuman);
+        const weightComparison = createStatements.weightComparison(tileData, thisHuman);
         comparisonStatements.push(weightComparison);
 
-        let heightComparison = createStatements.heightComparison(tileData, thisHuman);
+        const heightComparison = createStatements.heightComparison(tileData, thisHuman);
         comparisonStatements.push(heightComparison);
 
-        let dietComparison = createStatements.dietComparison(tileData, thisHuman);
+        const dietComparison = createStatements.dietComparison(tileData, thisHuman);
         comparisonStatements.push(dietComparison);
 
 
         // Return unorder list element featuring comparison statements
-        let comparisonHeading = document.createElement('h2');
+        const comparisonHeading = document.createElement('h2');
         comparisonHeading.innerHTML = 'Comparison Highlights';
         comparisonElements.push(comparisonHeading);
 
-        let comparisonList = document.createElement('ul');
+        const comparisonList = document.createElement('ul');
 
         comparisonStatements.forEach(function(statement) {
-            let comparisonStatement = document.createElement('li');
+            const comparisonStatement = document.createElement('li');
             comparisonStatement.innerHTML = statement;
             comparisonList.appendChild(comparisonStatement);
         });
@@ -94,8 +94,8 @@ export let createElements = (function() {
     }
 
     const moduleInterface = {
-        createTileElements: createTileElements,
-        createComparisonElements: createComparisonElements
+        createTileElements,
+        createComparisonElements
     }
 
     return moduleInterface;

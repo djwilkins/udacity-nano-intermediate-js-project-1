@@ -1,5 +1,5 @@
 
-export let createStatements = (function(){
+export const createStatements = (function(){
 
     /**
      * @name sentencify
@@ -20,17 +20,17 @@ export let createStatements = (function(){
      */
     function weightComparison(tileData, thisHuman) {
 
-        let weightLess = tileData.filter(function(dino) {
-            return dino.weight < thisHuman.weight;
+        const weighsLess = tileData.filter(function(dino) {
+            return dino.weighsLess(thisHuman);
         }).sort(function(a,b) {
             return b.weight - a.weight;
         }).map(function (dino) {
-            let string = `${dino.species} (${dino.weight} lbs)`;
+            const string = `${dino.species} (${dino.weight} lbs)`;
             return string;
         });
 
-        return weightLess.length > 0 ?
-            `You weight more at ${thisHuman.weight} lbs than the ${sentencify(weightLess)}. Interesting... Are you on a jurassic diet?` :
+        return weighsLess.length > 0 ?
+            `You weight more at ${thisHuman.weight} lbs than the ${sentencify(weighsLess)}. Interesting... Are you on a jurassic diet?` :
             'You weight less than every dinosaur shown above. Way to not be pre-historic.';
     }
 
@@ -42,12 +42,12 @@ export let createStatements = (function(){
      */
     function heightComparison(tileData, thisHuman) {
 
-        let lessTall = tileData.filter(function(dino) {
-            return dino.height < thisHuman.height;
+        const lessTall = tileData.filter(function(dino) {
+            return dino.lessTall(thisHuman);
         }).sort(function(a,b) {
             return b.height - a.height;
         }).map(function (dino) {
-            let string = `${dino.species} (${dino.height} inches)`;
+            const string = `${dino.species} (${dino.height} inches)`;
             return string;
         });
 
@@ -68,7 +68,7 @@ export let createStatements = (function(){
         let sameDiet, restaurantDate;
 
         sameDiet = sentencify(tileData.filter(function(dino) {
-            return ((dino.species != 'human') && (dino.diet == thisHuman.diet));
+            return (dino.species != 'human') && (dino.sameDiet(thisHuman));
         }).map(function (dino) {
             return dino.species;
         }));
@@ -84,9 +84,9 @@ export let createStatements = (function(){
     }
 
     const moduleInterface = {
-        weightComparison: weightComparison,
-        heightComparison: heightComparison,
-        dietComparison: dietComparison
+        weightComparison,
+        heightComparison,
+        dietComparison
     };
 
     return moduleInterface;

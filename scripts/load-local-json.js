@@ -5,7 +5,7 @@
  * @param {string} jsonFile - Path to jsonFile to load.
  * @param {string} callback - function to run once successfully loaded.
  */
-export let loadLocalJson = function (jsonFile, callback) {
+export const loadLocalJson = function (jsonFile, callback) {
   $.ajax({
     'async': true,
     'global': false,

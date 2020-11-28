@@ -1,5 +1,5 @@
 
-export let uiUtilities = (function() {
+export const uiUtilities = (function() {
 
     /**
      * @name hideFormShowResults
@@ -7,8 +7,6 @@ export let uiUtilities = (function() {
      */
     function hideFormShowResults() {
         document.getElementById('dino-compare').style.display = 'none';
-        document.getElementById('grid').style.visibility = 'visible';
-        document.getElementById('highlights').style.visibility = 'visible';
     }
 
     /**
@@ -22,15 +20,13 @@ export let uiUtilities = (function() {
             weight: parseInt(formData.get('weight')),
             height: `${(parseInt(formData.get('feet')) * 12) + parseInt(formData.get('inches'))}`,
             diet: formData.get('diet').toLowerCase(),
-            where: '',
-            when: '',
-            fact: formData.get('name')
+            name: formData.get('name')
         };
     }
 
     const moduleInterface = {
-        hideFormShowResults: hideFormShowResults,
-        formInputAsObject: formInputAsObject
+        hideFormShowResults,
+        formInputAsObject
     }
 
     return moduleInterface;
