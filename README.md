@@ -7,10 +7,10 @@ This is my version of the Udacity Intermediate Javascript Nano Degree OOJ Projec
 This project does the following:
 
 * Takes user input (name, height, weight, diet)
-* Ingests Dinosaur species data
+* Ingests Dinosaur species data (json)
 * Compares the Human/user input and Dinosaur data
-* Outputs a grid of tiles
-* And some comparison highlight statements
+* Creates and renders a grid of tiles
+* Creates and renders comparison highlight statements
 
 ---
 
